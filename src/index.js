@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import counterReducer from './store/reducers/counter';
 import resultsReducer from './store/reducers/results';
@@ -27,7 +27,10 @@ const logger = store => {
     };
 };
 
-const store = createStore(rootReducers, applyMiddleware(logger));
+// needed for Redux Devtool in browser
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(rootReducers, composeEnhancers(applyMiddleware(logger)));
 
 ReactDOM.render(
     <Provider store={store}>
