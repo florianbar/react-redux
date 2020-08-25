@@ -2,13 +2,17 @@ import * as actionTypes from './actionTypes';
 
 // Action Creators
 
+const storeResultData = (result) => {
+    return {
+        type: actionTypes.STORE_RESULT,
+        result: result
+    };
+};
+
 export const storeResult = (result) => {
     return dispatch => {
         setTimeout(() => {
-            dispatch({
-                type: actionTypes.STORE_RESULT,
-                result: result
-            });
+            dispatch(storeResultData(result));
         }, 2000);
     };
 };
