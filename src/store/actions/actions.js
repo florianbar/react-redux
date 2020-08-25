@@ -34,9 +34,13 @@ export const subtract = (value) => {
 };
 
 export const storeResult = (result) => {
-    return {
-        type: STORE_RESULT,
-        result: result
+    return dispatch => {
+        setTimeout(() => {
+            dispatch({
+                type: STORE_RESULT,
+                result: result
+            });
+        }, 2000);
     };
 };
 
