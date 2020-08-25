@@ -1,14 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 
+import { Provider } from 'react-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+
+import counterReducer from './store/reducers/counter';
+import resultsReducer from './store/reducers/results';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import reducer from './store/reducer';
 
-const store = createStore(reducer);
+const rootReducers = combineReducers({
+    ctr: counterReducer,
+    res: resultsReducer
+});
+
+// our custom middleware
+const logger = store => {
+    return next => {
+        return action => {
+            console.log("[Middleware] Dispatching", action);
+            const result = next(action);
+            console.log("[Middleware] next", store.getState());
+            return result;
+        };   
+    };
+};
+
+const store = createStore(rootReducers, applyMiddleware(logger));
 
 ReactDOM.render(
     <Provider store={store}>
