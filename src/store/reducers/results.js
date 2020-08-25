@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions';
+import * as actionTypes from '../actions/actions';
 
 const resultsState = {
     results: []
@@ -9,7 +9,7 @@ const resultsReducer = (state = resultsState, action) => {
         case actionTypes.STORE_RESULT:
             return {
                 ...state,
-                results: state.results.concat({ id: new Date(), value: action.counter })
+                results: state.results.concat({ id: new Date(), value: action.result })
             }
 
         case actionTypes.DELETE_RESULT:
